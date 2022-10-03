@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import NumberContainer from "../componens/game/NumberContainer";
 import InstructionText from "../componens/ui/InstructionText";
 import PrimaryButton from "../componens/ui/PrimaryButton";
+import Card from "../componens/ui/Card";
 import Title from "../componens/ui/Title";
 
 function generateRandomBetween(min, max, exclude) {
@@ -57,17 +59,23 @@ function GameScreen({ userNumber, onGameOver }) {
     <View style={styles.screen}>
       <Title>Opponent's Guess!</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <InstructionText>Higher or lower?</InstructionText>
-        <View>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
-            -
-          </PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
-            +
-          </PrimaryButton>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Higher or lower?
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+              <Ionicons name="md-remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
+              <Ionicons name="md-add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
+      </Card>
       {/* <View>
       <Text>Log rounds</Text>
     </View> */}
@@ -81,5 +89,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 32,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
